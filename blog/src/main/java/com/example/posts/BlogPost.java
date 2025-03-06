@@ -2,7 +2,9 @@ package com.example.posts;
 
 import java.util.Date;
 
-public class BlogPost {
+import com.example.common.CliDisplayable;
+
+public class BlogPost implements CliDisplayable {
 
     private Integer id;
     private String title;
@@ -57,6 +59,11 @@ public class BlogPost {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toCliDisplay() {
+        return this.title;
     }
 
 }

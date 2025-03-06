@@ -34,7 +34,7 @@ public class BlogCLI {
                 createPost();
                 break;
             case "2":
-                System.out.println("List");
+                listPosts();
                 break;
             case "3":
                 System.out.println("Exiting...");
@@ -51,9 +51,13 @@ public class BlogCLI {
         helper.clearScreen();
         CreatePostDto data = new CreatePostDto();
         System.out.println("Select a category");
-        Category selectedCategory = helper.selectItemFromList(Arrays.asList(Category.values()));
-        data.setCategory(selectedCategory);
-        helper.clearScreen();
+        try {
+            Category selectedCategory = helper.selectItemFromList(Arrays.asList(Category.values()));
+            data.setCategory(selectedCategory);
+            helper.clearScreen();
+        } catch (IllegalArgumentException e) {
+            CliHelper.printErrorMessage("Categories list empty");
+        }
         System.out.println("Blog category selected");
         helper.pause();
         String title = helper.validatedInput("Enter blog title", s -> !s.isBlank(), "Title cannot be empty");
@@ -70,9 +74,16 @@ public class BlogCLI {
     }
 
     public void listPosts() {
-        var selectedPost = helper.selectItemFromList(service.getAllPosts());
-        System.out.println(selectedPost);
-        helper.pause();
+        System.out.println("Blog Posts");
+        try {
+            var selectedPost = helper.selectItemFromList(service.getAllPosts());
+            System.out.println(selectedPost);
+            helper.pause();
+        } catch (IllegalArgumentException e) {
+            helper.clearScreen();
+            CliHelper.printErrorMessage("Blog Posts list empty");
+            helper.pause();
+        }
     }
 
 }

@@ -3,7 +3,9 @@ package com.example.posts;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public enum Category {
+import com.example.common.CliDisplayable;
+
+public enum Category implements CliDisplayable {
     TECHNOLOGY("technology"),
     LIFESTYLE("lifestyle"),
     ARTS("arts"),
@@ -26,7 +28,7 @@ public enum Category {
     }
 
     @Override
-    public String toString() {
+    public String toCliDisplay() {
         return Arrays.stream(displayName.split(" "))
                 .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
                 .collect(Collectors.joining(" "));

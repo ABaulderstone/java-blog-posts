@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
+import com.example.common.CliDisplayable;
+
 public class CliHelper {
     private final Scanner s;
 
@@ -54,16 +56,23 @@ public class CliHelper {
         }, String.format("Please enter number between %s and %s", min, max));
     }
 
-    public <T> T selectItemFromList(List<T> list) {
+    public <T extends CliDisplayable> T selectItemFromList(List<T> list) throws IllegalArgumentException {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("List is empty");
+        }
         var builder = new StringBuilder();
         builder.append("Select from: \n");
         for (int i = 0; i < list.size(); i++) {
-            builder.append(String.format("%s. %s\n", i + 1, list.get(i)));
+            builder.append(String.format("%s. %s\n", i + 1, list.get(i).toCliDisplay()));
         }
         String prompt = builder.toString();
         String selected = validateIntInRange(prompt, 1, list.size());
         int index = Integer.parseInt(selected) - 1;
         return list.get(index);
+    }
+
+    public static void printErrorMessage(String message) {
+        System.out.println(colorText(message, ConsoleColor.BRIGHT_RED));
     }
 
     public static String colorText(String text, ConsoleColor color) {
@@ -98,6 +107,7 @@ public class CliHelper {
         public String toString() {
             return code;
         }
+
     }
 
 }
