@@ -2,7 +2,7 @@ package com.example.posts;
 
 import java.util.Date;
 
-import com.example.common.CliDisplayable;
+import com.example.cli.CliDisplayable;
 
 public class BlogPost implements CliDisplayable {
 

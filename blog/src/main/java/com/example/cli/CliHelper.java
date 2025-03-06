@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-import com.example.common.CliDisplayable;
-
 public class CliHelper {
     private final Scanner s;
 

@@ -3,7 +3,7 @@ package com.example.posts;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import com.example.common.CliDisplayable;
+import com.example.cli.CliDisplayable;
 
 public enum Category implements CliDisplayable {
     TECHNOLOGY("technology"),
